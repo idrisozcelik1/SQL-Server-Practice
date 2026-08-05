@@ -36,16 +36,16 @@ Sehir VARCHAR(50) NULL,
 KayitTarihi DATE DEFAULT GETDATE()
 );
 
-CREATE TABLE Siparisler (
+CREATE TABLE Siparisler (                               -- 0: Hazırlanıyor   1: Kargoda   2: Tamamlandı
     SiparisID INT PRIMARY KEY IDENTITY(1,1),
     MusteriID INT NOT NULL,
     SiparisTarihi DATETIME DEFAULT GETDATE(),
-    Durum VARCHAR(20) CHECK (Durum IN ('Hazırlanıyor', 'Kargoda', 'Tamamlandı')),
+    Durum INT NOT NULL CHECK (Durum BETWEEN 0 AND 0),
     ToplamTutar DECIMAL(10,2) CHECK (ToplamTutar >= 0),
 
-    
     CONSTRAINT FK_Siparisler_Musteriler FOREIGN KEY (MusteriID) REFERENCES Musteriler(MusteriID)
 );
+
 
 CREATE TABLE SiparisDetaylari (
     SiparisDetayID INT PRIMARY KEY IDENTITY(1,1),
@@ -142,3 +142,4 @@ VALUES
       SELECT * FROM SiparisDetaylari;
 
       SELECT * FROM SiparisDetaylari WHERE SiparisID=1;
+
